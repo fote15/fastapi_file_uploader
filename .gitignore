@@ -1,0 +1,62 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env
+.env.local
+*.env
+
+# Poetry / Pipenv files
+Pipfile
+Pipfile.lock
+poetry.lock
+
+# Dependency folders
+.mypy_cache/
+.pytest_cache/
+pip-wheel-metadata/
+
+# Logs and debugging files
+logs/
+*.log
+debug.log
+nohup.out
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker and Kubernetes
+docker-compose.override.yml
+.env.docker
+.dockerignore
+
+# FastAPI / Uvicorn specific
+instance/
+*.db
+*.sqlite3
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Test coverage reports
+htmlcov/
+.coverage
+*.cover
+coverage.xml
+
+# Build and distribution
+dist/
+build/
+*.egg-info/
+
+# AWS / Cloud specific
+.aws/
+.terraform/
+terraform.tfstate*
+audio_files/*
