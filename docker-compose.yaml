@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: your_fastapi_image # Replace with your FastAPI image name
+    image: audio_uploader # Replace with your FastAPI image name
     container_name: fastapi_app
     build:
       context: .
