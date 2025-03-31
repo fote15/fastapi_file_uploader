@@ -1,28 +1,51 @@
 version: '3.8'
 
 services:
-  db:
-    image: postgres:16
-    container_name: audio_db
-    restart: always
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: audio_db
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  backend:
-    build: .
-    container_name: fastapi_audio
+  app:
+    image: your_fastapi_image # Replace with your FastAPI image name
+    container_name: fastapi_app
+    build:
+      context: .
+      dockerfile: Dockerfile # Replace with your Dockerfile path if needed
     ports:
       - "8000:8000"
     depends_on:
       - db
     env_file:
-      - .env
+      - .env  # This will load environment variables from the .env file
+    networks:
+      - app_network
+    volumes:
+      - ./app:/app  # Adjust this according to your project structure
+
+  db:
+    image: postgres:13
+    container_name: fastapi_db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}  # Referencing variables from .env file
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
 
 volumes:
-  postgres_data:
+  pg_data:
